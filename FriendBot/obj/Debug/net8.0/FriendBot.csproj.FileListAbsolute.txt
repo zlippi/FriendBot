@@ -41,3 +41,5 @@
 /home/zlippi/Documents/DiscordBots/FriendBot/FriendBot/obj/Debug/net8.0/FriendBot.pdb
 /home/zlippi/Documents/DiscordBots/FriendBot/FriendBot/obj/Debug/net8.0/FriendBot.genruntimeconfig.cache
 /home/zlippi/Documents/DiscordBots/FriendBot/FriendBot/obj/Debug/net8.0/ref/FriendBot.dll
+/home/zlippi/Documents/DiscordBots/FriendBot/FriendBot/bin/Debug/net8.0/config.json
+/home/zlippi/Documents/DiscordBots/FriendBot/FriendBot/obj/Debug/net8.0/FriendBot.sourcelink.json

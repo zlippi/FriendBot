@@ -1,22 +1,48 @@
 using Discord;
 using Discord.WebSocket;
 using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 class Program
 {
     private DiscordSocketClient _client;
-    private const string DISCORD_TOKEN = "";
+    private Config config;
+    
 
     static void Main(string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
-
+    
     public async Task MainAsync()
     {
         _client = new DiscordSocketClient();
         _client.Log += LogAsync;
         _client.Ready += ReadyAsync;
 
-        var token = DISCORD_TOKEN;
+
+        try
+        {
+            // Path to JSON file
+            string fileName = "config.json";
+            
+            // Read the file and deserialize it to the Config class
+            var configText = await File.ReadAllTextAsync(fileName);
+            config = JsonSerializer.Deserialize<Config>(configText);
+        }
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine("The token file was not found.");
+        }
+        catch (JsonException)
+        {
+            Console.WriteLine("Error parsing the JSON file.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+
+
+        var token = config.token;
         await _client.LoginAsync(TokenType.Bot, token);
         await _client.StartAsync();
 
