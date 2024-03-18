@@ -67,8 +67,8 @@ class Program
     // Event handler for the MessageReceived event
     private async Task MessageReceivedAsync(SocketMessage message)
     {
-        // Ignore messages from the bot itself to prevent loops
-        if (message.Author.Id == client.CurrentUser.Id) return;
+        // Ignore DMs from anyone & messages from the bot itself to prevent loops
+        if (message.Author.Id == client.CurrentUser.Id || message.Channel is IDMChannel) return;
 
         // Respond to the message
         if (message.Content == "!hello")
