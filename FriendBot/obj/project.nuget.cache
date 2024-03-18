@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "dgSpecHash": "8pZWnL2gy5IY65mnjsEa9KrxzZv5tpUSClpEqzxCyiZ7QXc+Qbz7u4Uv5/Ya8RMLVhbJZfrjehk0rQRD0N7vEw==",
+  "success": true,
+  "projectFilePath": "/home/zlippi/Documents/DiscordBots/FriendBot/FriendBot/FriendBot.csproj",
+  "expectedPackageFiles": [
+    "/home/zlippi/.nuget/packages/discord.net/3.13.1/discord.net.3.13.1.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/discord.net.commands/3.13.1/discord.net.commands.3.13.1.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/discord.net.core/3.13.1/discord.net.core.3.13.1.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/discord.net.interactions/3.13.1/discord.net.interactions.3.13.1.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/discord.net.rest/3.13.1/discord.net.rest.3.13.1.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/discord.net.webhook/3.13.1/discord.net.webhook.3.13.1.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/discord.net.websocket/3.13.1/discord.net.websocket.3.13.1.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/microsoft.aspnetcore.openapi/8.0.3/microsoft.aspnetcore.openapi.8.0.3.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/5.0.0/microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/newtonsoft.json/13.0.2/newtonsoft.json.13.0.2.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/swashbuckle.aspnetcore.swagger/6.4.0/swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.4.0/swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.4.0/swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/system.collections.immutable/5.0.0/system.collections.immutable.5.0.0.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/system.interactive.async/5.0.0/system.interactive.async.5.0.0.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/system.linq.async/5.0.0/system.linq.async.5.0.0.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/system.reactive/5.0.0/system.reactive.5.0.0.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/system.valuetuple/4.5.0/system.valuetuple.4.5.0.nupkg.sha512",
+    "/home/zlippi/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.3/microsoft.aspnetcore.app.ref.8.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
