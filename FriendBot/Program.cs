@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 class Program
 {
-    private DiscordSocketClient _client;
+    private DiscordSocketClient client;
     private Config config;
     
 
@@ -14,9 +14,10 @@ class Program
     
     public async Task MainAsync()
     {
-        _client = new DiscordSocketClient();
-        _client.Log += LogAsync;
-        _client.Ready += ReadyAsync;
+        client = new DiscordSocketClient();
+        client.Log += LogAsync;
+        client.Ready += ReadyAsync;
+        client.MessageReceived += MessageReceivedAsync;
 
 
         try
@@ -43,8 +44,8 @@ class Program
 
 
         var token = config.token;
-        await _client.LoginAsync(TokenType.Bot, token);
-        await _client.StartAsync();
+        await client.LoginAsync(TokenType.Bot, token);
+        await client.StartAsync();
 
         // Block this task until the program is closed.
         await Task.Delay(-1);
@@ -58,8 +59,21 @@ class Program
 
     private Task ReadyAsync()
     {
-        Console.WriteLine($"{_client.CurrentUser} is connected!");
+        Console.WriteLine($"{client.CurrentUser} is connected!");
 
         return Task.CompletedTask;
+    }
+
+    // Event handler for the MessageReceived event
+    private async Task MessageReceivedAsync(SocketMessage message)
+    {
+        // Ignore messages from the bot itself to prevent loops
+        if (message.Author.Id == client.CurrentUser.Id) return;
+
+        // Respond to the message
+        if (message.Content == "!hello")
+        {
+            await message.Channel.SendMessageAsync("Hello!");
+        }
     }
 }
