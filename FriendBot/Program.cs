@@ -3,6 +3,7 @@ using Discord.WebSocket;
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;
+using OpenAI_API;
 
 class Program
 {
@@ -43,8 +44,8 @@ class Program
         }
 
 
-        var token = config.token;
-        await client.LoginAsync(TokenType.Bot, token);
+        var discordtoken = config.DiscordToken;
+        await client.LoginAsync(TokenType.Bot, discordtoken);
         await client.StartAsync();
 
         // Block this task until the program is closed.

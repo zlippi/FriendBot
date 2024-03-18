@@ -1,4 +1,5 @@
 public class Config
 {
-    public string token { get; set; }
+    public string DiscordToken { get; set; }
+    public string OpenAIToken { get; set; }
 }
