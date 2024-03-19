@@ -47,7 +47,6 @@ class Program
         var discordtoken = config.DiscordToken;
         await client.LoginAsync(TokenType.Bot, discordtoken);
         await client.StartAsync();
-
         // Block this task until the program is closed.
         await Task.Delay(-1);
     }
@@ -82,7 +81,7 @@ class Program
 
                 // Retrieve the last 10 messages sent in the channel before the received message
                 var messages = await message.Channel.GetMessagesAsync(message.Id, Direction.Before, limit: 10).FlattenAsync();
-                
+
 
                 string history = "";
                 // Process the retrieved messages and concats them to a string
