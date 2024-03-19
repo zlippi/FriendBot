@@ -9,10 +9,10 @@ class Program
 {
     private DiscordSocketClient client;
     private Config config;
-    
+    private ChatBot openai;
 
     static void Main(string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
-    
+
     public async Task MainAsync()
     {
         client = new DiscordSocketClient();
@@ -25,7 +25,7 @@ class Program
         {
             // Path to JSON file
             string fileName = "config.json";
-            
+
             // Read the file and deserialize it to the Config class
             var configText = await File.ReadAllTextAsync(fileName);
             config = JsonSerializer.Deserialize<Config>(configText);
@@ -43,7 +43,7 @@ class Program
             Console.WriteLine($"An error occurred: {ex.Message}");
         }
 
-
+        openai = new ChatBot(config.OpenAIToken);
         var discordtoken = config.DiscordToken;
         await client.LoginAsync(TokenType.Bot, discordtoken);
         await client.StartAsync();
@@ -68,13 +68,35 @@ class Program
     // Event handler for the MessageReceived event
     private async Task MessageReceivedAsync(SocketMessage message)
     {
-        // Ignore DMs from anyone & messages from the bot itself to prevent loops
-        if (message.Author.Id == client.CurrentUser.Id || message.Channel is IDMChannel) return;
+        // Ignore messages from the bot itself to prevent loops
+        if (message.Author.Id == client.CurrentUser.Id) return;
 
-        // Respond to the message
-        if (message.Content == "!hello")
+        // Message is from a guild
+        if (message.Channel is IGuildChannel)
         {
-            await message.Channel.SendMessageAsync("Hello!");
+
+            bool botIsMentioned = message.MentionedUsers.Any(user => user.Id == client.CurrentUser.Id);
+            // If the bot or everyone is mentioned...
+            if (botIsMentioned || message.MentionedEveryone)
+            {
+
+                // Retrieve the last 10 messages sent in the channel before the received message
+                var messages = await message.Channel.GetMessagesAsync(message.Id, Direction.Before, limit: 10).FlattenAsync();
+                
+
+                string history = "";
+                // Process the retrieved messages and concats them to a string
+                foreach (var msg in messages)
+                {
+                    history += $"[{msg.Timestamp}] {msg.Author}: {msg.Content}\n";
+                    Console.WriteLine($"[{msg.Timestamp}] {msg.Author}: {msg.Content}");
+                }
+                // Passes the current message and history of messages
+                var typing = message.Channel.EnterTypingState();
+                var response = openai.Conversate($"[{message.Timestamp}] {message.Author}: {message.Content}", history);
+                await message.Channel.SendMessageAsync(response.Result);
+                typing.Dispose();
+            }
         }
     }
 }
