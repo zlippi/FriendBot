@@ -10,6 +10,8 @@ class Program
     private DiscordSocketClient client;
     private Config config;
     private ChatBot openai;
+    private JanAiService janAI;
+    private static readonly int DISCORD_MAX_CHARACTER_LIMIT = 2000;
 
     static void Main(string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
 
@@ -43,10 +45,11 @@ class Program
             Console.WriteLine($"An error occurred: {ex.Message}");
         }
 
-        openai = new ChatBot(config.OpenAIToken);
+        
         var discordtoken = config.DiscordToken;
         await client.LoginAsync(TokenType.Bot, discordtoken);
         await client.StartAsync();
+        janAI = new JanAiService();
         // Block this task until the program is closed.
         await Task.Delay(-1);
     }
@@ -60,7 +63,7 @@ class Program
     private Task ReadyAsync()
     {
         Console.WriteLine($"{client.CurrentUser} is connected!");
-
+        janAI.setNickname(client.CurrentUser.GlobalName);
         return Task.CompletedTask;
     }
 
@@ -80,22 +83,53 @@ class Program
             {
 
                 // Retrieve the last 10 messages sent in the channel before the received message
-                var messages = await message.Channel.GetMessagesAsync(message.Id, Direction.Before, limit: 10).FlattenAsync();
+                  var messages = await message.Channel.GetMessagesAsync(message.Id, Direction.Before, limit: 10).FlattenAsync();
 
 
-                string history = "";
-                // Process the retrieved messages and concats them to a string
-                foreach (var msg in messages)
-                {
-                    history += $"[{msg.Timestamp}] {msg.Author}: {msg.Content}\n";
-                    Console.WriteLine($"[{msg.Timestamp}] {msg.Author}: {msg.Content}");
-                }
+                  string history = "";
+                  // Process the retrieved messages and concats them to a string
+                  foreach (var msg in messages)
+                  {
+                      history += $"[{msg.Timestamp}] {msg.Author}: {msg.Content}\n";
+                      //Console.WriteLine($"[{msg.Timestamp}] {msg.Author}: {msg.Content}");
+                  }
                 // Passes the current message and history of messages
                 var typing = message.Channel.EnterTypingState();
-                var response = openai.Conversate($"[{message.Timestamp}] {message.Author}: {message.Content}", history);
-                await message.Channel.SendMessageAsync(response.Result);
+                
+                Console.WriteLine(history + $"[{message.Timestamp}] {message.Author}: {message.Content}");
+                
+                var response = await janAI.AskJanAiAsync(new Message { content = message.Content, role = "user" });
+                if (response.ToString().Length > DISCORD_MAX_CHARACTER_LIMIT)
+                {
+                    var toSend = SplitStringIntoChunks(response.ToString(), DISCORD_MAX_CHARACTER_LIMIT);
+                    foreach (var responseString in toSend)
+                    {
+                        await message.Channel.SendMessageAsync(responseString);
+                    }
+                }
+                else
+                    await message.Channel.SendMessageAsync(response.ToString());
+
                 typing.Dispose();
             }
         }
+    }
+
+    public static string[] SplitStringIntoChunks(string input, int chunkSize)
+    {
+        if (string.IsNullOrEmpty(input)) throw new ArgumentException("Input string cannot be null or empty.");
+        if (chunkSize <= 0) throw new ArgumentException("Chunk size must be greater than 0.");
+
+        var numberOfChunks = (int)Math.Ceiling((double)input.Length / chunkSize);
+        var chunks = new List<string>(numberOfChunks);
+
+        for (int i = 0; i < input.Length; i += chunkSize)
+        {
+            // Calculate the correct length for the last chunk, which may be shorter than chunkSize
+            var length = Math.Min(chunkSize, input.Length - i);
+            chunks.Add(input.Substring(i, length));
+        }
+
+        return chunks.ToArray();
     }
 }

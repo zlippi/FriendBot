@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendBot", "FriendBot\FriendBot.csproj", "{DAA1B647-006D-4EA2-9C19-3C81E76CFC3C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarBot", "..\WarBot\WarBot\WarBot.csproj", "{68A17E5C-34F8-420A-983E-BD10250DD330}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarBot", "..\WarBot\WarBot.csproj", "{8D4A85FA-10E7-47D5-8257-E40547D77399}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{DAA1B647-006D-4EA2-9C19-3C81E76CFC3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAA1B647-006D-4EA2-9C19-3C81E76CFC3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAA1B647-006D-4EA2-9C19-3C81E76CFC3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68A17E5C-34F8-420A-983E-BD10250DD330}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68A17E5C-34F8-420A-983E-BD10250DD330}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68A17E5C-34F8-420A-983E-BD10250DD330}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68A17E5C-34F8-420A-983E-BD10250DD330}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D4A85FA-10E7-47D5-8257-E40547D77399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D4A85FA-10E7-47D5-8257-E40547D77399}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D4A85FA-10E7-47D5-8257-E40547D77399}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D4A85FA-10E7-47D5-8257-E40547D77399}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
